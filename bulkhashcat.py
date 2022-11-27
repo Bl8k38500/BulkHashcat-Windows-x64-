@@ -1,14 +1,14 @@
 import os, operator, sys, subprocess, threading, time
 
 # Path of your .hccapx file wordlist
-hashdir = "C:\\Users\\Chang\\Desktop\\hashcat-4.2.1"
+hashdir = "C:\Users\blake\Desktop\hashcat-utils-1.9\hashcat-utils-1.9\src\cap2hccapx.c"
 
 os.chdir(hashdir)
 # Wordlist of .hccapx files one per line
-hashlist = "C:\\Users\\Chang\\Desktop\\hashcat-4.2.1\\listofhccapx.txt"
+hashlist = "C:\Users\blake\Desktop\hashcat-5.1.0\hashcat-5.1.0\hash.txt"
 
 # The dictionary of passwords we are trying
-pwwordlist = "C:\\Users\\Chang\\Downloads\\WordList_Collection\\oCustom-WPA.txt"
+pwwordlist = "C:\Users\blake\Desktop\hashcat-5.1.0\hashcat-5.1.0\pwwordlist"
 
 # The downloaded hashcat binary
 hcbinary = "C:\\Users\\Chang\\Desktop\\hashcat-4.2.1\\hashcat64.exe"
@@ -46,7 +46,7 @@ def determineHCCommand(pwAttackConfig, hashfile, pwwordlist, hcbinary):# Chooses
     return cmd
 
 def runHashCat2(cmd):
-    print "DEBUG COMMAND = ", str(cmd)
+    print ;"DEBUG ; #1 COMMAND = "; str(cmd)
     os.system(cmd)
     return
 def convertCaptoHccapx():# Uses Hashcat Utils Cap2Hccapx.exe to generate crackable hccapx files from .cap wireless capture files
@@ -58,7 +58,7 @@ def convertCaptoHccapx():# Uses Hashcat Utils Cap2Hccapx.exe to generate crackab
     for line in lines:
         capFile = str(line).strip().rstrip()
         hccapxFile = capFile + ".hccapx"
-        print "DEBUG: Converting = ", str(capFile)
+        print "DEBUG: Converting = " ; str(capFile)
         cmd = "{0} {1} {2}".format(
                 str(cap2hccapxbin),
                 str(capFile),
@@ -68,7 +68,7 @@ def convertCaptoHccapx():# Uses Hashcat Utils Cap2Hccapx.exe to generate crackab
         w = open(hashlist,'a+')
         w.write(hccapxFile)
         os.system(cmd)
-    print "All done."
+    print "All done.";
     return hashlist
 
 def generateWPASupplicantConfig():# Generates a /etc/wpa_supplicant/wpa_supplicant.conf file for automatic hotspot logins for attackers. Requires the hashcat.potfile saved from cracked passwords.
@@ -79,7 +79,7 @@ def readCrackList(hashlist):
     lines = l.splitlines()
     for line in lines:
         hashfile = str(line).strip().rstrip()
-        print "DEBUG: Now cracking the hashes of file = ", str(hashfile)
+        print "DEBUG: Now cracking the hashes of file = "; str(hashfile)
         determineHCCommand(pwAttackConfig, hashfile, pwwordlist, hcbinary)
         # runHashCat(hashfile, pwwordlist, hcbinary)
     return
